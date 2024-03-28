@@ -22,7 +22,7 @@ class _pgCamState extends State<pgCam> {
             child: Icon(
               Icons.camera_sharp,
               size: 100,
-              
+
             ),
           )
         ],
@@ -30,10 +30,10 @@ class _pgCamState extends State<pgCam> {
     ];
     return Scaffold(
         body: ListView.builder(
-      itemCount: _page2.length,
-      itemBuilder: (context, index) {
-        return _page2[index];
-      },
-    ));
+          itemCount: _page2.length,
+          itemBuilder: (context, index) {
+            return _page2[index];
+          },
+        ));
   }
 }

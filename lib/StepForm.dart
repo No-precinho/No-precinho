@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
-import './inicial/inicio.dart';
 import './cam/pgCam.dart';
+import './perfil/perfil.dart';
+import './inicial/searchBar.dart';
 
 class StepForm extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _StepFormState();
+    return StepFormState();
   }
 }
 
-class _StepFormState extends State<StepForm> {
-  String _cidade = 'Belzonte v';
+class StepFormState extends State<StepForm> {
+  String _cidade = 'Belo Horizonte';
   int _opc = 0;
   final _ctrl = PageController();
 
   final List _pageList = [
+    Inc(),
+    /*
     pageIncs(
         'https://image.cdn2.seaart.ai/2024-03-01/cnh3ec5e878c738rbgf0/ba8d5cc37c75f4d301038456f9fe21a4468e7662_high.webp',
         'Bebidas',
-        '7,39 R\$ \nHeineken_330ml'),
+        '7,39 R\$ \nHeineken_330ml'),*/
     pgCam(),
-    const Text('Perfil')
+    perButtons(),
   ];
 
   void Pages(page) {
@@ -52,27 +55,55 @@ class _StepFormState extends State<StepForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          _cidade,
-          style: TextStyle(color: Colors.white),
+        title: Row(
+          children: [
+            Expanded(
+              child: Text(
+                _cidade,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+            PopupMenuButton<String>(
+              icon: const Icon(
+                Icons.keyboard_arrow_down,
+                color: Colors.white,
+              ),
+              onSelected: (String newValue) {
+                setState(() {
+                  _cidade = newValue;
+                });
+              },
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                const PopupMenuItem<String>(
+                  value: 'Belo Horizonte',
+                  child: Text('Belo Horizonte'),
+                ),
+                const PopupMenuItem<String>(
+                  value: 'Betim',
+                  child: Text('Betim'),
+                ),
+                const PopupMenuItem<String>(
+                  value: 'Contagem',
+                  child: Text('Contagem'),
+                ),
+              ],
+            ),
+          ],
         ),
         backgroundColor: const Color(0xFFC70C65),
       ),
-      //
       body: PageView.builder(
           itemCount: _pageList.length,
-          //physics: const NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,
           controller: _ctrl,
-          physics: const PageScrollPhysics(),
+          //physics: const PageScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
             //atzPage();
             return _pageList[index];
           }),
-
       bottomNavigationBar: BottomNavigationBar(
-        fixedColor: Color.fromARGB(255, 12, 220, 67),
+        fixedColor: Colors.green,
         //fixedColor: Colors.white,
         unselectedItemColor: Colors.white,
         type: BottomNavigationBarType.fixed,
@@ -89,17 +120,15 @@ class _StepFormState extends State<StepForm> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: String.fromEnvironment('home'),
-
-            //label: Text(data),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.photo_camera),
-            label: String.fromEnvironment('photo_camera'),
+            label: 'Camera',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: String.fromEnvironment('person'),
+            label: 'Profile',
           ),
         ],
       ),

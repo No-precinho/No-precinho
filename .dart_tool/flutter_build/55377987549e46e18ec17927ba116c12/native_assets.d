@@ -1,0 +1,1 @@
+ C:\\Users\\Luix\\Desktop\\sprint2\\sprint2\\.dart_tool\\flutter_build\\55377987549e46e18ec17927ba116c12\\native_assets.yaml: 

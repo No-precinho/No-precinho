@@ -6,10 +6,14 @@ Widget itenSel(String imgUrl, String title, String descricao) {
     child: Column(
       children: [
         //Text(title,style: const TextStyle(fontWeight: FontWeight.bold,fontStyle: FontStyle.normal,fontSize: 30,),),
-        Image.network(
-          imgUrl,
-          width: 80,
-          height: 80,
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: Image.network(
+            imgUrl,
+            width: 80,
+            height: 80,
+            fit: BoxFit.cover,
+          ),
         ),
         Text(
           descricao,
@@ -17,7 +21,7 @@ Widget itenSel(String imgUrl, String title, String descricao) {
               fontSize: 10,
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.normal),
-        )
+        ),
       ],
     ),
   );
