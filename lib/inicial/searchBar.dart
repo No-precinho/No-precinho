@@ -21,6 +21,7 @@ class _Inc extends State<Inc> {
       theme: themeData,
       home: Scaffold(
           body: NestedScrollView(
+            scrollDirection: Axis.vertical,
               headerSliverBuilder: (context, _) => [
                     SliverAppBar(
                       toolbarHeight: 80,
