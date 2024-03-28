@@ -17,11 +17,6 @@ class StepFormState extends State<StepForm> {
 
   final List _pageList = [
     Inc(),
-    /*
-    pageIncs(
-        'https://image.cdn2.seaart.ai/2024-03-01/cnh3ec5e878c738rbgf0/ba8d5cc37c75f4d301038456f9fe21a4468e7662_high.webp',
-        'Bebidas',
-        '7,39 R\$ \nHeineken_330ml'),*/
     pgCam(),
     perButtons(),
   ];
@@ -43,12 +38,6 @@ class StepFormState extends State<StepForm> {
       _ctrl.animateToPage(2,
           duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
     }
-  }
-
-  void atzPage() {
-    //_opc = _ctrl.position as int;
-    print('test:');
-    print(_ctrl.position);
   }
 
   @override
@@ -99,7 +88,6 @@ class StepFormState extends State<StepForm> {
           controller: _ctrl,
           //physics: const PageScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
-            //atzPage();
             return _pageList[index];
           }),
       bottomNavigationBar: BottomNavigationBar(
