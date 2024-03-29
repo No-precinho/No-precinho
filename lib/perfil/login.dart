@@ -9,10 +9,11 @@ class login extends StatefulWidget {
 class _login extends State<login> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+      return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.white, //change your color here
+          ),
           title: const Text(
             'No precinho',
             style: TextStyle(
@@ -20,7 +21,7 @@ class _login extends State<login> {
             ),
           ),
           centerTitle: true,
-          backgroundColor: const Color(0xFFC70C65),
+          backgroundColor: const Color(0xFFC70C65)
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -79,7 +80,6 @@ class _login extends State<login> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }
