@@ -17,7 +17,7 @@ class StepFormState extends State<StepForm> {
 
   final List _pageList = [
     Inc(),
-    pgCam(),
+    CameraScreen(),
     perButtons(),
   ];
 

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../produto/prodPrinc.dart';
 import './itenSel.dart';
 
-Widget linePage(String imgUrl, String title, String descricao) {
+Widget linhas(
+    String imgUrl, String title, String descricao, BuildContext context) {
   return SingleChildScrollView(
     scrollDirection: Axis.horizontal,
     child: Padding(
@@ -11,11 +13,16 @@ Widget linePage(String imgUrl, String title, String descricao) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ForProd(imgUrl, title, descricao),
-          ForProd(imgUrl, title, descricao),
-          ForProd(imgUrl, title, descricao),
-          ForProd(imgUrl, title, descricao),
-          ForProd(imgUrl, title, descricao),
+          // iten 1
+          ForProd(imgUrl, title, descricao, context),
+          // iten 2
+          ForProd(imgUrl, title, descricao, context),
+          // iten 3
+          ForProd(imgUrl, title, descricao, context),
+          // iten 4
+          ForProd(imgUrl, title, descricao, context),
+          // iten 5
+          ForProd(imgUrl, title, descricao, context),
         ],
       ),
     ),

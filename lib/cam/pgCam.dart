@@ -1,39 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:camerawesome/camerawesome_plugin.dart';
 
-class pgCam extends StatefulWidget {
+class CameraScreen extends StatefulWidget {
   @override
-  _pgCamState createState() => _pgCamState();
+  _CameraScreenState createState() => _CameraScreenState();
 }
 
-class _pgCamState extends State<pgCam> {
+class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
-    List _page2 = [
-      const Column(
-        children: <Widget>[
-          //Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-          Text('Atualizar produto'),
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(Colors.green),
-            ),
-            onPressed: null,
-            child: Icon(
-              Icons.camera_sharp,
-              size: 100,
-
-            ),
-          )
-        ],
-      )
-    ];
     return Scaffold(
-        body: ListView.builder(
-          itemCount: _page2.length,
-          itemBuilder: (context, index) {
-            return _page2[index];
-          },
-        ));
+      appBar: AppBar(
+        title: const Text('Camera'),
+      ),
+      body: CameraWidget(),
+    );
+  }
+}
+
+class CameraWidget extends StatefulWidget {
+  @override
+  _CameraWidgetState createState() => _CameraWidgetState();
+}
+
+class _CameraWidgetState extends State<CameraWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return CameraAwesomeBuilder.awesome(
+      saveConfig: SaveConfig.photoAndVideo(),
+      onMediaTap: (mediaCapture) {
+        
+      },
+    );
   }
 }

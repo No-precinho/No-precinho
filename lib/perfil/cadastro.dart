@@ -13,10 +13,11 @@ class MyApp extends StatefulWidget {
 class _MyApp extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.white, //change your color here
+          ),
           title: const Text(
             'No precinho',
             style: TextStyle(
@@ -100,7 +101,6 @@ class _MyApp extends State<MyApp> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

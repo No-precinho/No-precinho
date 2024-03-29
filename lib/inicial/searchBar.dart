@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './rowsInten.dart';
+import './rowsInten.dart';
+import '../produto/prodPrinc.dart';
 
 class Inc extends StatefulWidget {
   @override
@@ -21,7 +23,7 @@ class _Inc extends State<Inc> {
       theme: themeData,
       home: Scaffold(
           body: NestedScrollView(
-            scrollDirection: Axis.vertical,
+              scrollDirection: Axis.vertical,
               headerSliverBuilder: (context, _) => [
                     SliverAppBar(
                       toolbarHeight: 80,
@@ -63,7 +65,7 @@ class _Inc extends State<Inc> {
                 child: Column(
                   children: [
                     Align(
-                      //Linha: 1
+                      //Linha: 1 --------------------------------------------------------------------------------
                       child: Text(
                         title,
                         style: const TextStyle(
@@ -72,9 +74,9 @@ class _Inc extends State<Inc> {
                         ),
                       ),
                     ),
-                    linePage(imgUrl, title, descricao),
+                    linhas(imgUrl, title, descricao, context),
                     Align(
-                      //Linha: 2
+                      //Linha: 2 --------------------------------------------------------------------------------
                       //alignment: Alignment.bottomLeft,
                       child: Text(
                         title,
@@ -84,9 +86,9 @@ class _Inc extends State<Inc> {
                         ),
                       ),
                     ),
-                    linePage(imgUrl, title, descricao),
+                    linhas(imgUrl, title, descricao, context),
                     Align(
-                      //Linha: 3
+                      //Linha: 3 --------------------------------------------------------------------------------
                       //alignment: Alignment.bottomLeft,
                       child: Text(
                         title,
@@ -96,9 +98,9 @@ class _Inc extends State<Inc> {
                         ),
                       ),
                     ),
-                    linePage(imgUrl, title, descricao),
+                    linhas(imgUrl, title, descricao, context),
                     Align(
-                      //Linha: 4
+                      //Linha: 4 --------------------------------------------------------------------------------
                       //alignment: Alignment.bottomLeft,
                       child: Text(
                         title,
@@ -108,9 +110,9 @@ class _Inc extends State<Inc> {
                         ),
                       ),
                     ),
-                    linePage(imgUrl, title, descricao),
+                    linhas(imgUrl, title, descricao, context),
                     Align(
-                      //Linha: 5
+                      //Linha: 5 --------------------------------------------------------------------------------
                       //alignment: Alignment.bottomLeft,
                       child: Text(
                         title,
@@ -120,7 +122,7 @@ class _Inc extends State<Inc> {
                         ),
                       ),
                     ),
-                    linePage(imgUrl, title, descricao),
+                    linhas(imgUrl, title, descricao, context),
                   ],
                 ),
               ))),
