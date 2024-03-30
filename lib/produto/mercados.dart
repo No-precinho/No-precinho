@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Mercado extends StatelessWidget {
   final String nome;
   final String endereco;
-  final String preco;
+  final double preco;
 
   const Mercado(
       {super.key,
@@ -27,7 +27,7 @@ class Mercado extends StatelessWidget {
               ),
               SizedBox(width: 10),
               Text(
-                preco,
+                'R\$${preco}',
                 style: TextStyle(fontSize: 20, color: Colors.red),
               ),
             ],

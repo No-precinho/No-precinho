@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import './mercados.dart';
+import '../inicial/ProdInterface.dart';
 
 class prodClass extends StatefulWidget {
-  String imgUrl = '';
-  String title = '';
-  String descricao = '';
-  prodClass(this.imgUrl, this.title, this.descricao);
+  itenc it;
+  prodClass(this.it);
 
   @override
-  _prodClass createState() => _prodClass(imgUrl, title, descricao);
+  _prodClass createState() => _prodClass(it);
 }
 
 class _prodClass extends State<prodClass> {
-  String imgUrl = '';
-  String title = '';
-  String descricao = '';
-  _prodClass(this.imgUrl, this.title, this.descricao);
+  itenc it;
+  _prodClass(this.it);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +46,7 @@ class _prodClass extends State<prodClass> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10.0),
                           child: Image.network(
-                            imgUrl,
+                            it.imgUr,
                             width: 80,
                             height: 80,
                             fit: BoxFit.cover,
@@ -59,7 +56,7 @@ class _prodClass extends State<prodClass> {
                           padding: const EdgeInsets.only(left: 50),
                           width: 200,
                           child: Text(
-                            descricao,
+                            ('${it.preco}  ${it.nomecomplet}'),
                             textAlign: TextAlign.left,
                             style: const TextStyle(
                               fontSize: 18,
@@ -91,44 +88,48 @@ class _prodClass extends State<prodClass> {
                 ),
               ),
             ),
-            const Mercado(
+             Mercado(
                 nome: "ABC",
                 endereco: "Rua São Paulo da Cruz",
-                preco: "R\$7,80"),
+                preco: (double.parse((it.precoR * 1.05).toStringAsFixed(2)))),
             const Divider(
               color: Color(0xFFEEEEEE),
               thickness: 2,
             ),
-            const Mercado(
+            Mercado(
                 nome: "Carrefour",
                 endereco: "Rua João Soares de Senna",
-                preco: "R\$8,40"),
+                preco: (double.parse((it.precoR * 1.1).toStringAsFixed(2)))),
             const Divider(
               color: Color(0xFFEEEEEE),
               thickness: 2,
             ),
-            const Mercado(
-                nome: "Dia%", endereco: "Rua Joatuba", preco: "R\$8,65"),
+            Mercado(
+                nome: "Dia%",
+                endereco: "Rua Joatuba",
+                preco: (double.parse((it.precoR * 1.12).toStringAsFixed(2)))),
             const Divider(
               color: Color(0xFFEEEEEE),
               thickness: 2,
             ),
-            const Mercado(
-                nome: "Carrefour", endereco: "Rua Glocínia", preco: "R\$8,89"),
+            Mercado(
+                nome: "Carrefour", endereco: "Rua Glocínia", preco: (double.parse((it.precoR * 1.15).toStringAsFixed(2)))),
             const Divider(
               color: Color(0xFFEEEEEE),
               thickness: 2,
             ),
-            const Mercado(
-                nome: "Supernosso", endereco: "Rua Glocínia", preco: "R\$8,99"),
+            Mercado(
+                nome: "Supernosso",
+                endereco: "Rua Glocínia",
+                preco: (double.parse((it.precoR * 1.2).toStringAsFixed(2)))),
             const Divider(
               color: Color(0xFFEEEEEE),
               thickness: 2,
             ),
-            const Mercado(
+            Mercado(
                 nome: "Supernosso",
                 endereco: "Rua Dois Mil Duzentos e Vinte",
-                preco: "R\$8,99"),
+                preco: (double.parse((it.precoR * 1.2).toStringAsFixed(2)))),
             const Divider(
               color: Color(0xFFEEEEEE),
               thickness: 2,
