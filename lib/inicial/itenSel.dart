@@ -22,7 +22,7 @@ Widget ForProd(itenc it, /*int x, int y,*/ BuildContext context) {
         context,
         MaterialPageRoute(
           builder: (context) =>
-              prodClass(it.imgUr, 'title', '${it.preco}\n${it.title}'),
+              prodClass(it.imgUr, 'title', '${it.preco}\n${it.nomecomplet}'),
         ),
       );
     },

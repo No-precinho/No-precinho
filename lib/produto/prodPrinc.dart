@@ -60,9 +60,9 @@ class _prodClass extends State<prodClass> {
                           width: 200,
                           child: Text(
                             descricao,
-                            textAlign: TextAlign.center,
+                            textAlign: TextAlign.left,
                             style: const TextStyle(
-                              fontSize: 24,
+                              fontSize: 18,
                             ),
                           ),
                         ),
