@@ -42,6 +42,7 @@ Widget ForProd(itenc it, /*int x, int y,*/ BuildContext context) {
           ),
           Text(
             '${it.preco}\n${it.title}',
+            textAlign: TextAlign.center,
             style: const TextStyle(
                 fontSize: 10,
                 fontStyle: FontStyle.italic,

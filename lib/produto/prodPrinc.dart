@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import './mercados.dart';
 
 class prodClass extends StatefulWidget {
@@ -54,10 +55,12 @@ class _prodClass extends State<prodClass> {
                             fit: BoxFit.cover,
                           ),
                         ),
-                        Padding(
+                        Container(
                           padding: const EdgeInsets.only(left: 50),
+                          width: 200,
                           child: Text(
                             descricao,
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 24,
                             ),
