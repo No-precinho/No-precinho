@@ -19,6 +19,9 @@ class _prodClass extends State<prodClass> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          iconTheme: const IconThemeData(
+            color: Colors.white, //change your color here
+          ),
           title: const Text(
             'No precinho',
             style: TextStyle(
@@ -88,7 +91,7 @@ class _prodClass extends State<prodClass> {
                 ),
               ),
             ),
-             Mercado(
+            Mercado(
                 nome: "ABC",
                 endereco: "Rua São Paulo da Cruz",
                 preco: (double.parse((it.precoR * 1.05).toStringAsFixed(2)))),
@@ -113,7 +116,9 @@ class _prodClass extends State<prodClass> {
               thickness: 2,
             ),
             Mercado(
-                nome: "Carrefour", endereco: "Rua Glocínia", preco: (double.parse((it.precoR * 1.15).toStringAsFixed(2)))),
+                nome: "Carrefour",
+                endereco: "Rua Glocínia",
+                preco: (double.parse((it.precoR * 1.15).toStringAsFixed(2)))),
             const Divider(
               color: Color(0xFFEEEEEE),
               thickness: 2,
