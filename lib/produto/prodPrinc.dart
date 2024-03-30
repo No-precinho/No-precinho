@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './mercados.dart';
 
@@ -38,7 +37,7 @@ class _prodClass extends State<prodClass> {
               child: Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Color(0xFFEEEEEE),
+                  color: const Color(0xFFEEEEEE),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
@@ -124,7 +123,9 @@ class _prodClass extends State<prodClass> {
               thickness: 2,
             ),
             const Mercado(
-                nome: "Supernosso", endereco: "Rua Dois Mil Duzentos e Vinte", preco: "R\$8,99"),
+                nome: "Supernosso",
+                endereco: "Rua Dois Mil Duzentos e Vinte",
+                preco: "R\$8,99"),
             const Divider(
               color: Color(0xFFEEEEEE),
               thickness: 2,

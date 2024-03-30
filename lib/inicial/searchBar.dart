@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import './rowsInten.dart';
-import './rowsInten.dart';
-import '../produto/prodPrinc.dart';
+import './ProdInterface.dart';
 
 class Inc extends StatefulWidget {
   @override
@@ -14,9 +13,19 @@ String title = 'Bebidas';
 String descricao = '7,39 R\$ \nHeineken_330ml';
 
 class _Inc extends State<Inc> {
+  itensRowc itR1 = new itensRowc();
+  itensRowc itR2 = new itensRowc();
+  itensRowc itR3 = new itensRowc();
+  itensRowc itR4 = new itensRowc();
+  itensRowc itR5 = new itensRowc();
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = ThemeData(useMaterial3: true);
+    itR1.gerador1();
+    itR2.gerador2();
+    itR3.gerador3();
+    itR4.gerador4();
+    itR5.gerador5();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -62,67 +71,74 @@ class _Inc extends State<Inc> {
                     ),
                   ],
               body: SingleChildScrollView(
+                // https://listenx.com.br/blog/setores-de-um-supermercado/
                 child: Column(
                   children: [
-                    Align(
+                    const Align(
                       //Linha: 1 --------------------------------------------------------------------------------
+                      alignment: Alignment(-0.9, 0),
                       child: Text(
-                        title,
-                        style: const TextStyle(
+                        // vinhos, cervejas, whisky, sucos, refrigerantes, água;
+                        "Adega e bebidas",
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
                         ),
                       ),
                     ),
-                    linhas(imgUrl, title, descricao, context),
-                    Align(
+                    linhas(itR1, context),
+                    const Align(
                       //Linha: 2 --------------------------------------------------------------------------------
-                      //alignment: Alignment.bottomLeft,
+                      alignment: Alignment(-0.9, 0),
                       child: Text(
-                        title,
-                        style: const TextStyle(
+                        // presuntos, salames, diferentes tipos de queijos, iogurtes, leites (em alguns supermercados eles podem ficar na área de mercearia), leites vegetais;
+                        "Frios e laticínios",
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
                         ),
                       ),
                     ),
-                    linhas(imgUrl, title, descricao, context),
-                    Align(
+                    linhas(itR2, context),
+                    const Align(
                       //Linha: 3 --------------------------------------------------------------------------------
-                      //alignment: Alignment.bottomLeft,
+                      alignment: Alignment(-0.9, 0),
                       child: Text(
-                        title,
-                        style: const TextStyle(
+                        // podem ter produtos de fabricação própria ou não, pães, bolos, salgados, doces caseiros, panetones;
+                        "Padaria e confeitaria",
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
                         ),
                       ),
                     ),
-                    linhas(imgUrl, title, descricao, context),
-                    Align(
+                    linhas(itR3, context),
+                    const Align(
                       //Linha: 4 --------------------------------------------------------------------------------
-                      //alignment: Alignment.bottomLeft,
+                      alignment: Alignment(-0.9, 0),
                       child: Text(
-                        title,
-                        style: const TextStyle(
+                        /// chocolates, biscoitos, bolachas, balas.
+                        "Biscoitos e doces",
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
                         ),
                       ),
                     ),
-                    linhas(imgUrl, title, descricao, context),
-                    Align(
+                    linhas(itR4, context),
+                    const Align(
                       //Linha: 5 --------------------------------------------------------------------------------
-                      //alignment: Alignment.bottomLeft,
+                      alignment: Alignment(-0.9, 0),
                       child: Text(
-                        title,
-                        style: const TextStyle(
+                        // farinhas, arroz, feijão, óleo, macarrão, molhos, temperos, massas prontas para bolo, leites e enlatados em alguns supermercados;
+                        "Mercearia",
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
                         ),
                       ),
                     ),
-                    linhas(imgUrl, title, descricao, context),
+                    linhas(itR5, context),
                   ],
                 ),
               ))),

@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
 import '../produto/prodPrinc.dart';
+import './ProdInterface.dart';
 
-Widget ForProd(
-    String imgUrl, String title, String descricao, BuildContext context) {
+Widget ForProd(itenc it, /*int x, int y,*/ BuildContext context) {
   return GestureDetector(
     onTap: () {
+      /*
+      if (x == 1) {
+        itR.gerador1();
+      } else if (x == 2) {
+        itR.gerador2();
+      } else if (x == 3) {
+        itR.gerador3();
+      } else if (x == 4) {
+        itR.gerador4();
+      } else if (x == 5) {
+        itR.gerador5();
+      }*/
       VoidCallbackAction();
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => prodClass(imgUrl, title, descricao),
+          builder: (context) =>
+              prodClass(it.imgUr, 'title', '${it.preco}\n${it.title}'),
         ),
       );
     },
@@ -21,14 +34,14 @@ Widget ForProd(
           ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
             child: Image.network(
-              imgUrl,
+              it.imgUr,
               width: 80,
               height: 80,
               fit: BoxFit.cover,
             ),
           ),
           Text(
-            descricao,
+            '${it.preco}\n${it.title}',
             style: const TextStyle(
                 fontSize: 10,
                 fontStyle: FontStyle.italic,
