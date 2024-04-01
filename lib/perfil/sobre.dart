@@ -37,10 +37,10 @@ class AboutScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
+                const Text('Caio Ronan Horta'),
                 const Text('Luiz Fernando Antunes da Silva Frassi'),
                 const Text('Rafael Rodrigues Oliveira'),
                 const Text('Yuri de Oliveira Silva'),
-                const Text('Caio Ronan Horta'),
                 const SizedBox(height: 20),
                 const Text(
                   'PUC Minas, 2024',
