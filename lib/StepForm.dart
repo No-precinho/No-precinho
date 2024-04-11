@@ -91,7 +91,7 @@ class StepFormState extends State<StepForm> {
             return _pageList[index];
           }),
       bottomNavigationBar: BottomNavigationBar(
-        fixedColor: Colors.green,
+        fixedColor: Colors.cyan,
         //fixedColor: Colors.white,
         unselectedItemColor: Colors.white,
         type: BottomNavigationBarType.fixed,
