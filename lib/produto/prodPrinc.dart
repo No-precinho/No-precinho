@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import './mercados.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 import '../inicial/ProdInterface.dart';
 
 class prodClass extends StatefulWidget {
@@ -14,6 +15,51 @@ class prodClass extends StatefulWidget {
 class _prodClass extends State<prodClass> {
   itenc it;
   _prodClass(this.it);
+
+  _createTable() async {
+    final dbpath = await getDatabasesPath();
+    final localdb = join(dbpath, "produtos.bd");
+
+    var bd = await openDatabase(localdb, version: 1, onCreate: (db, dbvr) {
+      String sql =
+          "CREATE TABLE produtosMercados (id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR, preco REAL, idSupermercado INTEGER) ";
+      db.execute(sql);
+    });
+    return bd;
+  }
+
+  _insertProduto() async {
+    Database db = await _createTable();
+    Map<String, dynamic> dadosProdutos;
+    dadosProdutos = {
+      "nome": "Heineken_330ml",
+      "preco": 7.39,
+      "idSupermercado": 1
+    };
+    int id = await db.insert("produtosMercados", dadosProdutos);
+    print("Salvo: $id ");
+    dadosProdutos = {
+      "nome": "Vinho Tinto",
+      "preco": 80.00,
+      "idSupermercado": 1
+    };
+    id = await db.insert("produtos", dadosProdutos);
+    print("Salvo: $id ");
+    dadosProdutos = {
+      "nome": "Gin Artesanal",
+      "preco": 120.00,
+      "idSupermercado": 1
+    };
+    id = await db.insert("produtos", dadosProdutos);
+    print("Salvo: $id ");
+    dadosProdutos = {
+      "nome": "Whisky Single",
+      "preco": 150.00,
+      "idSupermercado": 1
+    };
+    id = await db.insert("produtos", dadosProdutos);
+    print("Salvo: $id ");
+  }
 
   @override
   Widget build(BuildContext context) {
