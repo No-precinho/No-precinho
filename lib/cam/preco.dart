@@ -1,7 +1,15 @@
+import 'dart:async';
+import '../bd/bd.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CurrencyInputField extends StatefulWidget {
+  /*TextEditingController getControl() {
+    _CurrencyInputFieldState getcur = _CurrencyInputFieldState();
+    return getcur.getControl();
+  }*/
+
   @override
   _CurrencyInputFieldState createState() => _CurrencyInputFieldState();
 }
@@ -30,22 +38,37 @@ class _CurrencyInputFieldState extends State<CurrencyInputField> {
     double value = int.parse(text) / 100;
 
     numberController.text = value.toStringAsFixed(2).replaceAll(".", ",");
-    numberController.selection = TextSelection.collapsed(offset: numberController.text.length);
+    numberController.selection =
+        TextSelection.collapsed(offset: numberController.text.length);
+  }
+
+  TextEditingController getControl() {
+    //TextEditingController ctrl = numberController;
+    return numberController;
   }
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: numberController,
-      keyboardType: TextInputType.number,
-      decoration: const InputDecoration(
-        prefixText: 'R\$ ',
-        border: OutlineInputBorder(),
-        labelText: 'Valor',
+    Bd acessbd = Bd();
+    return Column(children: [
+      TextFormField(
+        controller: numberController,
+        keyboardType: TextInputType.number,
+        decoration: const InputDecoration(
+          prefixText: 'R\$ ',
+          border: OutlineInputBorder(),
+          labelText: 'Valor',
+        ),
+        inputFormatters: [
+          FilteringTextInputFormatter.digitsOnly,
+        ],
       ),
-      inputFormatters: [
-        FilteringTextInputFormatter.digitsOnly,
-      ],
-    );
+      ElevatedButton(
+          child: const Text("Precos "),
+          onPressed: () {
+            //acessbd.createState().listarProduto();
+            print("\nP: " + numberController.text);
+          }),
+    ]);
   }
 }

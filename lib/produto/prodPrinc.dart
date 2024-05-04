@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import './mercados.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 import '../inicial/ProdInterface.dart';
+import '../bd/bd.dart';
 
 class prodClass extends StatefulWidget {
   itenc it;
@@ -15,51 +14,6 @@ class prodClass extends StatefulWidget {
 class _prodClass extends State<prodClass> {
   itenc it;
   _prodClass(this.it);
-
-  _createTable() async {
-    final dbpath = await getDatabasesPath();
-    final localdb = join(dbpath, "produtos.bd");
-
-    var bd = await openDatabase(localdb, version: 1, onCreate: (db, dbvr) {
-      String sql =
-          "CREATE TABLE produtosMercados (id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR, preco REAL, idSupermercado INTEGER) ";
-      db.execute(sql);
-    });
-    return bd;
-  }
-
-  _insertProduto() async {
-    Database db = await _createTable();
-    Map<String, dynamic> dadosProdutos;
-    dadosProdutos = {
-      "nome": "Heineken_330ml",
-      "preco": 7.39,
-      "idSupermercado": 1
-    };
-    int id = await db.insert("produtosMercados", dadosProdutos);
-    print("Salvo: $id ");
-    dadosProdutos = {
-      "nome": "Vinho Tinto",
-      "preco": 80.00,
-      "idSupermercado": 1
-    };
-    id = await db.insert("produtos", dadosProdutos);
-    print("Salvo: $id ");
-    dadosProdutos = {
-      "nome": "Gin Artesanal",
-      "preco": 120.00,
-      "idSupermercado": 1
-    };
-    id = await db.insert("produtos", dadosProdutos);
-    print("Salvo: $id ");
-    dadosProdutos = {
-      "nome": "Whisky Single",
-      "preco": 150.00,
-      "idSupermercado": 1
-    };
-    id = await db.insert("produtos", dadosProdutos);
-    print("Salvo: $id ");
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +43,34 @@ class _prodClass extends State<prodClass> {
                 ),
                 child: Column(
                   children: [
+                    //----------------------------------------------------------Cria
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(const Color(0xFF6D0CB9)),
+                        fixedSize:
+                            MaterialStateProperty.all(const Size(180, 50)),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Bd(),
+                      ),
+                    );
+                        //_createTable2();
+                        // Adicione o código para o que deve acontecer quando o botão é pressionado
+                      },
+                      child: const Text(
+                        'SecretBd',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                        ),
+                      ),
+                    ),
+                    //----------------------------------------------------------
+                    
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
