@@ -1,3 +1,9 @@
+import 'dart:math';
+
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class itenc {
   String imgUr =
       'https://image.cdn2.seaart.ai/2024-03-01/cnh3ec5e878c738rbgf0/ba8d5cc37c75f4d301038456f9fe21a4468e7662_high.webp';
@@ -10,11 +16,405 @@ class itenc {
 }
 
 class itensRowc {
+  int codebarid = 0;
+  String idSuperMec = "BH";
   itenc it1 = new itenc();
   itenc it2 = new itenc();
   itenc it3 = new itenc();
   itenc it4 = new itenc();
   itenc it5 = new itenc();
+
+  void addGerar(String n, String img, String cat) {
+    // Obtém uma referência para a coleção de usuários
+    CollectionReference ref = FirebaseFirestore.instance.collection('products');
+
+    // Cria um novo documento com os dados do usuário
+    ref.add({
+      "name": n,
+      "image": img,
+      "category": cat,
+    }).then((value) {
+      print("Produto adicionado com sucesso! ID do documento: ${value.id}");
+    }).catchError((error) {
+      print("Erro ao adicionar produto: $error");
+    });
+  }
+/*
+  void addGerar(String n, String img, String cat) async {
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref("products/$codebarid");
+    await ref.set({
+      "name": n,
+      "image": img,
+      "category": cat,
+    });
+  }*/
+
+  void adcomp() {
+    // gera produtos base
+    addGerar(
+        "Heineken_330ml",
+        "https://cdn.awsli.com.br/2500x2500/2371/2371659/produto/169355378/304ad436dd.jpg",
+        "Adega e bebidas");
+    codebarid++;
+    addGerar(
+        "Vinho Tinto",
+        "https://cdn.awsli.com.br/2500x2500/1377/1377751/produto/156502978/ad15e54743.jpg",
+        "Adega e bebidas");
+    codebarid++;
+    addGerar(
+        "Gin Artesanal",
+        "https://cdn.awsli.com.br/800x800/91/91186/produto/54300587/3df62b9a42.jpg",
+        "Adega e bebidas");
+    codebarid++;
+    addGerar(
+        "Whisky Single",
+        "https://cdn.iset.io/assets/50100/produtos/24/jack1.jpg",
+        "Adega e bebidas");
+    codebarid++;
+    addGerar(
+        "Vodka Premium",
+        "https://adegabrooklin.com.br/wp-content/uploads/2023/01/Vodka-Absolut-1-litrook.png",
+        "Adega e bebidas");
+    codebarid++;
+    addGerar(
+        "Queijo Gorgonzola",
+        "https://io.convertiez.com.br/m/superpaguemenos/shop/products/images/18865/medium/queijo-gorgonzola-tirolez-kg_76422.png",
+        "Frios e laticínios");
+    codebarid++;
+    addGerar(
+        "Presunto Parma",
+        "https://static.paodeacucar.com/img/uploads/1/62/658062.png",
+        "Frios e laticínios");
+    codebarid++;
+    addGerar(
+        "Iogurte Grego",
+        "https://www.sondadelivery.com.br/img.aspx/sku/1000040209/530/7896051165712.png",
+        "Frios e laticínios");
+    codebarid++;
+    addGerar(
+        "Manteiga com Sal",
+        "https://tirolez.com.br/wp-content/uploads/tirolezapi/PT-3-11-45Manteiga%20Com%20Sal%20200g.png",
+        "Frios e laticínios");
+    codebarid++;
+    addGerar(
+        "Salame Italiano",
+        "https://rafasupervarejao.com.br/36972/697-salame-tipo-italiano-sadia-250g.jpg",
+        "Frios e laticínios");
+    codebarid++;
+
+    addGerar(
+        //3
+        "Pão Francês",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeMdlRz59OMciIJhtU6ivF7GINbN1cIZncWCGmfDrYiA&s",
+        "Padaria e confeitaria");
+    codebarid++;
+    addGerar(
+        //3
+        "Croissant de Chocolate",
+        "https://static.itdg.com.br/images/1200-630/8e23fd7f8225b98238bba43bd4d142db/croissant-de-chocolate.jpg",
+        "Padaria e confeitaria");
+    codebarid++;
+    addGerar(
+        //3
+        "Bolo Red Velvet",
+        "https://cdn.vnda.com.br/1000x/bisoupartyshop/2022/10/27/20_10_3_359_DDEF0799.jpg?v=1666914621",
+        "Padaria e confeitaria");
+    codebarid++;
+    addGerar(
+        //3
+        "Torta de Limão",
+        "https://cknj.com.br/teste/wp-content/uploads/2021/10/torta-de-limao-01-1200x901.jpg",
+        "Padaria e confeitaria");
+    codebarid++;
+    addGerar(
+        //3
+        "Pão de Queijo",
+        "https://essareceitafunciona.com.br/wp-content/uploads/2022/07/Pao-de-queijo-Essa-Receita-Funciona-9-500x500.jpg",
+        "Padaria e confeitaria");
+    codebarid++;
+
+    addGerar(
+        //4
+        "Biscoito Recheado de Chocolate",
+        "https://richester.b-cdn.net/wp-content/uploads/2021/01/Recheado-Amori-Chocolate-125g-1.png",
+        "Biscoitos e doces");
+    codebarid++;
+    addGerar(
+        //4
+        "Brigadeiro Gourmet",
+        "https://assets.delirec.com/images%2FUeqVWaiebAOPCtk5KDDUJ6uEnLD2%2Frecipe%2Fc2707086-cc0b-4a1e-828a-d3d521cd5205-Brigadeiro-gourmet--gallery-0",
+        "Biscoitos e doces");
+    codebarid++;
+    addGerar(
+        //4
+        "Biscoito de Polvilho",
+        "https://cdn.awsli.com.br/600x450/1411/1411579/produto/70792492/12dc68d67c.jpg",
+        "Biscoitos e doces");
+    codebarid++;
+    addGerar(
+        //4
+        "Alfajor Argentino",
+        "https://bistroentrecote.com.br/wp-content/uploads/2023/08/Alfajor-Argentino-4.jpg",
+        "Biscoitos e doces");
+    codebarid++;
+    addGerar(
+        //4
+        "Cookies de Aveia e Passas",
+        "https://cdn0.tudoreceitas.com/pt/posts/8/1/5/biscoitos_de_aveia_com_passas_4518_600_square.jpg",
+        "Biscoitos e doces");
+    codebarid++;
+
+    addGerar(
+        //5
+        "Arroz Integral",
+        "https://static.paodeacucar.com/img/uploads/1/172/11228172.png",
+        "Mercearia");
+    codebarid++;
+    addGerar(
+        //5
+        "Feijão Preto",
+        "https://www.camil.com.br/wp-content/uploads/sites/12/2020/06/1582828742-mkp-feijao-preto-1kg-3-768x768.png",
+        "Mercearia");
+    codebarid++;
+    addGerar(
+        //5
+        "Azeite de Oliva Extra Virgem",
+        "https://loja.cestanobre.com.br/storage/produtos/azeite-de-oliva-extra-virgem-cocinero-250ml-2.webp",
+        "Mercearia");
+    codebarid++;
+    addGerar(
+        //5
+        "Café em Grãos Pilão",
+        "https://m.media-amazon.com/images/I/71f0kaEjrGL._AC_UF1000,1000_QL80_.jpg",
+        "Mercearia");
+    codebarid++;
+    addGerar(
+        //5
+        "Molho de Tomate Fugini",
+        "https://storage.googleapis.com/phygital_files/multimarketcachambi/uploads/produto/ext_tomate_fugini_sache_340g_604e111e-5846-481b-a777-ab20277ed322.thumbnail.png",
+        "Mercearia");
+    codebarid++;
+  }
+
+  void addGerarMercadoria(String codbar, double preco, String supermercado) {
+    // Obtém uma referência para a coleção de usuários
+    CollectionReference marketProducts =
+        FirebaseFirestore.instance.collection('marketProducts');
+
+    // Cria um novo documento com os dados do usuário
+    marketProducts.add({
+      "codbar": codbar,
+      "preco": preco,
+      "supermercado": supermercado,
+    }).then((value) {
+      print("marketProducts adicionado com sucesso! ID do documento: ${value.id}");
+    }).catchError((error) {
+      print("Erro ao adicionar marketProducts: $error");
+    });
+  }
+/*
+  void addGerarMercadoria(
+      String codbar, double preco, String supermercado) async {
+    DatabaseReference ref = FirebaseDatabase.instance
+        .ref("productmercado/$supermercado-$codebarid");
+    await ref.set({
+      "codbar": codbar,
+      "preco": preco,
+      "supermercado": supermercado,
+    });
+  }*/
+
+  void addcompmercado() {
+    double a = 12;
+    // gera produtos mercadoria
+    addGerarMercadoria("$codebarid", 7.39, "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria("$codebarid", 80.00, "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria("$codebarid", 120.00, "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria("$codebarid", 250.00, "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria("$codebarid", 150.00, "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria("$codebarid", 35.00, "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria("$codebarid", 90.00, "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria("$codebarid", 6.00, "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria("$codebarid", 8.00, "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria("$codebarid", 50.00, "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+
+    addGerarMercadoria(
+        //3
+        "$codebarid",
+        10.00,
+        "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria(
+        //3
+        "$codebarid",
+        5.00,
+        "$idSuperMec");
+    print('$codebarid');
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria(
+        //3
+        "$codebarid",
+        60.00,
+        "$idSuperMec");
+    print('$codebarid');
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria(
+        //3
+        "$codebarid",
+        40.00,
+        "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria(
+        //3
+        "$codebarid",
+        25.00,
+        "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+
+    addGerarMercadoria(
+        //4
+        "$codebarid",
+        3.50,
+        "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria(
+        //4
+        "$codebarid",
+        2.00,
+        "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria(
+        //4
+        "$codebarid",
+        15.00,
+        "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria(
+        //4
+        "$codebarid",
+        4.00,
+        "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria(
+        //4
+        "$codebarid",
+        20.00,
+        "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+
+    addGerarMercadoria(
+        //5
+        "$codebarid",
+        5.00,
+        "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria(
+        //5
+        "$codebarid",
+        8.00,
+        "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria(
+        //5
+        "$codebarid",
+        20.00,
+        "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria(
+        //5
+        "$codebarid",
+        25.00,
+        "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+    addGerarMercadoria(
+        //5
+        "$codebarid",
+        5.00,
+        "$idSuperMec");
+    print('$codebarid');
+    codebarid++;
+    a = sqrt(897);
+    a = sqrt(8997);
+  }
 
   void gerador1() {
     it1.imgUr =

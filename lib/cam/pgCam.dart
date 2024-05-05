@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -10,6 +11,10 @@ class BarcodeScannerPage extends StatefulWidget {
 }
 
 class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
+  TextEditingController _controllerpreco = TextEditingController();
+  TextEditingController _controllersupermercado = TextEditingController();
+  String mercadinho2 = "";
+  String alert = "";
   String _barcodeResult = 'Aguardando leitura do código de barras...';
 
   Future<void> _scanBarcode() async {
@@ -34,9 +39,7 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
     //CurrencyInputField preco = CurrencyInputField();
     //CurrencyInputFieldState prec2 = preco.createState();
     //
-    TextEditingController _controllerpreco = TextEditingController();
-    TextEditingController _controllersupermercado = TextEditingController();
-    String mercadinho2 = "";
+
     //String mercadinho = "";
     return Scaffold(
       appBar: AppBar(
@@ -110,12 +113,12 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
                       ],
-                    ),
+                    ), /*
                     ElevatedButton(
                         child: const Text("Precos "),
                         onPressed: () {
                           print("\nP: " + numberController.text);
-                        }),
+                        }),*/
                     //CurrencyInputField(),
                     // Outros widgets podem ser adicionados aqui
                   ],
@@ -128,7 +131,9 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
                   fixedSize: MaterialStateProperty.all(const Size(180, 50)),
                 ),
                 onPressed: () {
-                  acessbd.createState().atualizarProduto("Heineken_330ml", numberController.text, _controllersupermercado.text);
+                  //acessbd.createState().atualizarProduto("Heineken_330ml", numberController.text, _controllersupermercado.text);
+                  atualizarProduto(
+                      '0', _controllersupermercado.text, numberController.text);
                 },
                 child: const Text(
                   'Salvar',
@@ -148,6 +153,54 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
         child: const Icon(Icons.camera_alt),
       ),
     );
+  }
+
+  //Banc
+
+  void atualizarProduto(String nome, String idSupermercado, String preco) {
+    double? d = double.tryParse(preco.replaceAll(RegExp(r'[^0-9.]'), '.'));
+    _atzValor(nome, idSupermercado, d!);
+  }
+
+  void _atzValor(String cod, String supermark, double prec) async {
+    // Verific
+    final quer = FirebaseDatabase.instance.ref();
+    final snapshot = await quer.child('productmercado/$supermark-$cod').get();
+    print('$supermark-$cod');
+    if (snapshot.exists) {
+      DatabaseReference ref =
+          FirebaseDatabase.instance.ref("productmercado/$supermark-$cod");
+      // Only update the name, leave the age and address!
+      await ref.update({
+        "preco": prec,
+      });
+      print("Foi3");
+      alertaset(1);
+    } else {
+      alertaset(0);
+      print('No data available.');
+    }
+    //Atz
+  }
+
+  void alertaset(int i) {
+    if (i == 1) {
+      setState(() {
+        _barcodeResult = "Iten atualizado";
+      });
+      _refreshPage();
+    } else {
+      setState(() {
+        _barcodeResult = "Não foi possivel atualizar iten";
+      });
+    }
+  }
+
+  Future<void> _refreshPage() async {
+    // Lógica para recarregar a página
+    await Future.delayed(
+        Duration(seconds: 1)); // Simulando um processo assíncrono
+    print('Página recarregada');
   }
 
   //floatis

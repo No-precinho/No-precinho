@@ -3,6 +3,7 @@ import './cam/pgCam.dart';
 import './perfil/perfil.dart';
 import './inicial/searchBar.dart';
 import 'package:firebase_database/firebase_database.dart';
+import './inicial/ProdInterface.dart';
 
 class StepForm extends StatefulWidget {
   @override
@@ -13,22 +14,69 @@ class StepForm extends StatefulWidget {
 
 class StepFormState extends State<StepForm> {
   void addUserToDatabase() async {
+    print("Entrei");
     // Obtém uma referência para a tabela "users" no Realtime Database
     final usersRef = FirebaseDatabase.instance.ref().child('products');
+    print("Entrei2");
     // Cria um novo nó com um ID exclusivo gerado automaticamente
-    final newUserRef = usersRef.push();
+    final newUserRef = usersRef.get();
 
-    // Define os dados do usuário
+    /*
+
+    DatabaseReference ref = FirebaseDatabase.instance.ref("products/4");
+
+    await ref.set({
+      "name": "Iogurte Grego Natural",
+      "image": "https://www.sondadelivery.com.br/img.aspx/sku/1000040209/530/7896051165712.png",
+      "category": "Frios e laticínios",
+    });
+
+    DatabaseReference q = FirebaseDatabase.instance.ref("products/3");
+
+    await q.set({
+      "name": "Heineken_330ml",
+      "image": "https://cdn.awsli.com.br/2500x2500/2371/2371659/produto/169355378/304ad436dd.jpg",
+      "category": "Adega e bebidas",
+    });
+
+    DatabaseReference e = FirebaseDatabase.instance.ref("products/2");
+
+    await e.set({
+      "name": "Queijo Gorgonzola",
+      "image": "https://io.convertiez.com.br/m/superpaguemenos/shop/products/images/18865/medium/queijo-gorgonzola-tirolez-kg_76422.png",
+      "category": "Frios e laticínios",
+    });
+
+    DatabaseReference w = FirebaseDatabase.instance.ref("products/1");
+
+    await w.set({
+      "name": "Pão Francês",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeMdlRz59OMciIJhtU6ivF7GINbN1cIZncWCGmfDrYiA&s",
+      "category": "Padaria e confeitaria",
+    });
+*/
+/*
+    DatabaseReference ref = FirebaseDatabase.instance.ref("products/-Nx5ssRSbEEapxoszXHO");
+
+// Only update the name, leave the age and address!
+
+    await ref.update({
+      "name": "Presunto Parma",
+    });
+    print("Foi3");*/
+
+    // Define os dados do usuário ADD
+/*
     await newUserRef
         .set({
-          "name": "Pão tradicional 450g - Wickbold",
+          "name": "Heineken_330ml",
           "image":
-              "https://wickbold.com.br/wp-content/uploads/2012/10/IMG-1-2.png"
+              "https://cdn.awsli.com.br/2500x2500/2371/2371659/produto/169355378/304ad436dd.jpg"
         })
         .then((_) {})
         .catchError((error) {
           print('Erro ao adicionar usuário: $error');
-        });
+        });*/
   }
 
   String _cidade = 'Belo Horizonte';
@@ -117,7 +165,9 @@ class StepFormState extends State<StepForm> {
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xFF6D0CB9),
         onTap: (opcao) {
-          addUserToDatabase();
+          //addUserToDatabase();
+          //itensRowc it = itensRowc();
+          //it.adcomp();
           Pages(opcao);
           _opc = opcao;
           //(context as Element).markNeedsBuild();
