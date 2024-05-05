@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../StepForm.dart';
 
 class MyApp extends StatefulWidget {
@@ -17,7 +18,7 @@ class MyApp extends StatefulWidget {
 class _MyApp extends State<MyApp> {
   _createTable() async {
     final dbpath = await getDatabasesPath();
-    final localdb = join(dbpath, "clientes_local.bd");
+    final localdb = join(dbpath, "clientesLocal.bd");
 
     var bd = await openDatabase(localdb, version: 1, onCreate: (db, dbvr) {
       String sql =
@@ -27,11 +28,26 @@ class _MyApp extends State<MyApp> {
     return bd;
   }
 
-  _insertUserLocal(String nome) async {
+  _insertUserLocal(String nome, String email, String senha) async {
     Database db = await _createTable();
     Map<String, dynamic> dadosUsuario = {"nome": nome};
     int id = await db.insert("usuarios_local", dadosUsuario);
-    print("Salvo: $id ");
+
+    var bytes = utf8.encode(senha);
+    var senhaComMd5 = md5.convert(bytes);
+
+    adicionarUsuario(nome, email, senhaComMd5.toString());
+  }
+
+  void adicionarUsuario(String nome, String email, String senha) {
+    CollectionReference usuarios =
+        FirebaseFirestore.instance.collection('users');
+
+    usuarios.add({'nome': nome, 'email': email, 'senha': senha}).then((value) {
+      print("Usuário adicionado com sucesso! ID do documento: ${value.id}");
+    }).catchError((error) {
+      print("Erro ao adicionar usuário: $error");
+    });
   }
 
   @override
@@ -119,8 +135,9 @@ class _MyApp extends State<MyApp> {
                       _controlleremail.text.contains("@") &&
                       _controlleremail.text.contains(".com") &&
                       _controllersenha.text == _controllerconfirmarsenha.text &&
-                      _controllersenha.text.length <= 3)
-                    _insertUserLocal(_controllernome.text);
+                      _controllersenha.text.length >= 3)
+                    _insertUserLocal(_controllernome.text,
+                        _controlleremail.text, _controllersenha.text);
                   else {
                     print('O nome/email/senha nao sao validos!');
                   }

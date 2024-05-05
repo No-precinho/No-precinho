@@ -8,22 +8,17 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import 'package:firebase_core/firebase_core.dart'; // Importe o pacote Firebase Core
+import 'package:cloud_firestore/cloud_firestore.dart'; // Importe o pacote Cloud Firestore
 import './StepForm.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
+  await Firebase.initializeApp(); // Inicialize o Firebase
   runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: FutureBuilder(
-          future: _fbApp,
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Text("Erro");
-            } else {
-              return StepForm();
-            }
-          })));
+    debugShowCheckedModeBanner: false,
+    home:
+        StepForm(), // Não há necessidade de FutureBuilder, pois Firebase.initializeApp() já é uma operação assíncrona
+  ));
 }

@@ -90,7 +90,7 @@ class itensRowc {
     it4.nomecomplet = 'Manteiga com Sal';
 
     it5.imgUr =
-        'https://www.casamissao.com.br/wp-content/uploads/2020/12/salame-italiano-fatiado-aurora.jpg';
+        'https://rafasupervarejao.com.br/36972/697-salame-tipo-italiano-sadia-250g.jpg';
     it5.category = 'Frios e laticínios';
     it5.precoR = 50.00;
     it5.preco = 'R\$ ${it5.precoR}/kg';

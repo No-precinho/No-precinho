@@ -13,10 +13,8 @@ class StepForm extends StatefulWidget {
 
 class StepFormState extends State<StepForm> {
   void addUserToDatabase() async {
-    print("Entrei");
     // Obtém uma referência para a tabela "users" no Realtime Database
     final usersRef = FirebaseDatabase.instance.ref().child('products');
-    print("Entrei2");
     // Cria um novo nó com um ID exclusivo gerado automaticamente
     final newUserRef = usersRef.push();
 
@@ -119,6 +117,7 @@ class StepFormState extends State<StepForm> {
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xFF6D0CB9),
         onTap: (opcao) {
+          addUserToDatabase();
           Pages(opcao);
           _opc = opcao;
           //(context as Element).markNeedsBuild();
