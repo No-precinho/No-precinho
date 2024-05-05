@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './cam/pgCam.dart';
 import './perfil/perfil.dart';
 import './inicial/searchBar.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class StepForm extends StatefulWidget {
   @override
@@ -11,6 +12,27 @@ class StepForm extends StatefulWidget {
 }
 
 class StepFormState extends State<StepForm> {
+  void addUserToDatabase() async {
+    print("Entrei");
+    // Obtém uma referência para a tabela "users" no Realtime Database
+    final usersRef = FirebaseDatabase.instance.ref().child('products');
+    print("Entrei2");
+    // Cria um novo nó com um ID exclusivo gerado automaticamente
+    final newUserRef = usersRef.push();
+
+    // Define os dados do usuário
+    await newUserRef
+        .set({
+          "name": "Pão tradicional 450g - Wickbold",
+          "image":
+              "https://wickbold.com.br/wp-content/uploads/2012/10/IMG-1-2.png"
+        })
+        .then((_) {})
+        .catchError((error) {
+          print('Erro ao adicionar usuário: $error');
+        });
+  }
+
   String _cidade = 'Belo Horizonte';
   int _opc = 0;
   final _ctrl = PageController();

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "569269422358",
+    "project_id": "precinho1",
+    "storage_bucket": "precinho1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569269422358:android:a6141f18c8acba0b37a837",
+        "android_client_info": {
+          "package_name": "com.example.sprint2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbGSeTPML7d2dkmrZkRZiVySid47_38eA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -180,9 +180,7 @@ class _BdState extends State<Bd> {
     double? d = double.tryParse(preco.replaceAll(RegExp(r'[^0-9.]'), ''));
     int? ids = int.tryParse(idSupermercado.replaceAll(RegExp(r'[^0-9.]'), ''));
 
-
     print('1F $d I $ids');
-
 
     //print('2F $d I ');
     //_atualizarProduto(nome, preco as Float, idSupermercado as int);
