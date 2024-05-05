@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
 import '../StepForm.dart';
 
 class MyApp extends StatefulWidget {
@@ -15,25 +17,21 @@ class MyApp extends StatefulWidget {
 class _MyApp extends State<MyApp> {
   _createTable() async {
     final dbpath = await getDatabasesPath();
-    final localdb = join(dbpath, "clientes.bd");
+    final localdb = join(dbpath, "clientes_local.bd");
 
     var bd = await openDatabase(localdb, version: 1, onCreate: (db, dbvr) {
       String sql =
-          "CREATE TABLE usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR, email VARCHAR, senha VARCHAR) ";
+          "CREATE TABLE usuarios_local (id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR) ";
       db.execute(sql);
     });
     return bd;
   }
 
-  _insertUser(String nome, String email, String senha) async {
+  _insertUserLocal(String nome) async {
     Database db = await _createTable();
-    Map<String, dynamic> dadosUsuario = {
-      "nome": nome,
-      "email": email,
-      "senha": senha
-    };
-    int id = await db.insert("usuarios", dadosUsuario);
-    //print("Salvo: $id ");
+    Map<String, dynamic> dadosUsuario = {"nome": nome};
+    int id = await db.insert("usuarios_local", dadosUsuario);
+    print("Salvo: $id ");
   }
 
   @override
@@ -117,17 +115,14 @@ class _MyApp extends State<MyApp> {
                   fixedSize: MaterialStateProperty.all(const Size(130, 50)),
                 ),
                 onPressed: () {
-                  if (_controllersenha.text == _controllerconfirmarsenha.text)
-                    _insertUser(_controllernome.text, _controlleremail.text,
-                        _controllersenha.text);
+                  if (_controllernome.text != "" &&
+                      _controlleremail.text.contains("@") &&
+                      _controlleremail.text.contains(".com") &&
+                      _controllersenha.text == _controllerconfirmarsenha.text &&
+                      _controllersenha.text.length <= 3)
+                    _insertUserLocal(_controllernome.text);
                   else {
-                    print('As senhas não são iguais!');
-                    const Text(
-                      'As senhas não são iguais!',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 224, 12, 12),
-                      ),
-                    );
+                    print('O nome/email/senha nao sao validos!');
                   }
                   Navigator.pushAndRemoveUntil(
                     context,
