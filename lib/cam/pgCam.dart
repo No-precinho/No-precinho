@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -102,7 +103,7 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: <Widget>[
-                    TextFormField(
+                    TextField(
                       controller: numberController,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
@@ -110,9 +111,6 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
                         border: OutlineInputBorder(),
                         labelText: 'Valor',
                       ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
                     ), /*
                     ElevatedButton(
                         child: const Text("Precos "),
@@ -164,76 +162,38 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
 
   void _atzValor(String cod, String supermark, double prec) async {
     // Verific
-    final quer = FirebaseDatabase.instance.ref();
-    final snapshot = await quer.child('productmercado/$supermark-$cod').get();
-    print('$supermark-$cod');
-    if (snapshot.exists) {
-      DatabaseReference ref =
-          FirebaseDatabase.instance.ref("productmercado/$supermark-$cod");
-      // Only update the name, leave the age and address!
-      await ref.update({
-        "preco": prec,
-      });
-      print("Foi3");
-      alertaset(1);
+    CollectionReference ref =
+        FirebaseFirestore.instance.collection('supermarkets');
+
+    QuerySnapshot querySnapshot =
+        await ref.where("name", isEqualTo: supermark).get();
+
+    if (querySnapshot.size > 0) {
+      String idSupermarket = querySnapshot.docs.first.id;
+      CollectionReference productsRef =
+          FirebaseFirestore.instance.collection('marketProducts');
+      QuerySnapshot qs = await productsRef
+          .where("EAN", isEqualTo: cod)
+          .where("idSupermarket", isEqualTo: idSupermarket)
+          .get();
+
+      DocumentSnapshot ds = qs.docs.first;
+      ds.reference
+          .update({'preco': prec})
+          .then((value) => print("Document Updated"))
+          .catchError((error) => print("Failed to update document: $error"));
     } else {
-      alertaset(0);
-      print('No data available.');
+      print("No documents found");
     }
-    //Atz
-  }
-
-  void alertaset(int i) {
-    if (i == 1) {
-      setState(() {
-        _barcodeResult = "Iten atualizado";
-      });
-      _refreshPage();
-    } else {
-      setState(() {
-        _barcodeResult = "Não foi possivel atualizar iten";
-      });
-    }
-  }
-
-  Future<void> _refreshPage() async {
-    // Lógica para recarregar a página
-    await Future.delayed(
-        Duration(seconds: 1)); // Simulando um processo assíncrono
-    print('Página recarregada');
-  }
-
-  //floatis
-
-  TextEditingController numberController = TextEditingController(text: "0,00");
-
-  @override
-  void initState() {
-    super.initState();
-    numberController.addListener(_updateValue);
-  }
-
-  @override
-  void dispose() {
-    numberController.removeListener(_updateValue);
-    numberController.dispose();
-    super.dispose();
-  }
-
-  void _updateValue() {
-    String text = numberController.text.replaceAll(",", "").padLeft(3, '0');
-    if (text.length > 5) {
-      text = text.substring(text.length - 5);
-    }
-    double value = int.parse(text) / 100;
-
-    numberController.text = value.toStringAsFixed(2).replaceAll(".", ",");
-    numberController.selection =
-        TextSelection.collapsed(offset: numberController.text.length);
-  }
-
-  TextEditingController getControl() {
-    //TextEditingController ctrl = numberController;
-    return numberController;
   }
 }
+
+Future<void> _refreshPage() async {
+  // Lógica para recarregar a página
+  await Future.delayed(
+      Duration(seconds: 1)); // Simulando um processo assíncrono
+  print('Página recarregada');
+}
+
+//floatis
+TextEditingController numberController = TextEditingController(text: "0,00");

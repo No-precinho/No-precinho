@@ -13,7 +13,7 @@ Widget linhas(itensRowc itR, /*int i,*/ BuildContext context) {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // iten 1
-          ForProd(itR.it1, /*i, 1,*/ context),
+          ForProd(itR.it1[0], /*i, 1,*/ context),
           // iten 2
           ForProd(itR.it2, /*i, 2,*/ context),
           // iten 3

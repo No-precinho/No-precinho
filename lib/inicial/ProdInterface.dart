@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class itenc {
+  String id = "";
   String imgUr =
       'https://image.cdn2.seaart.ai/2024-03-01/cnh3ec5e878c738rbgf0/ba8d5cc37c75f4d301038456f9fe21a4468e7662_high.webp';
   String category = "Adega e bebidas";
@@ -18,11 +19,11 @@ class itenc {
 class itensRowc {
   int codebarid = 0;
   String idSuperMec = "BH";
-  itenc it1 = new itenc();
-  itenc it2 = new itenc();
-  itenc it3 = new itenc();
-  itenc it4 = new itenc();
-  itenc it5 = new itenc();
+  List<itenc> it1 = [];
+  itenc it2 = itenc();
+  itenc it3 = itenc();
+  itenc it4 = itenc();
+  itenc it5 = itenc();
 
   void addGerar(String n, String img, String cat) {
     // Obtém uma referência para a coleção de usuários
@@ -208,7 +209,8 @@ class itensRowc {
       "preco": preco,
       "supermercado": supermercado,
     }).then((value) {
-      print("marketProducts adicionado com sucesso! ID do documento: ${value.id}");
+      print(
+          "marketProducts adicionado com sucesso! ID do documento: ${value.id}");
     }).catchError((error) {
       print("Erro ao adicionar marketProducts: $error");
     });
@@ -417,13 +419,13 @@ class itensRowc {
   }
 
   void gerador1() {
-    it1.imgUr =
+    /*it1.imgUr =
         'https://cdn.awsli.com.br/2500x2500/2371/2371659/produto/169355378/304ad436dd.jpg';
     it1.category = 'Adega e bebidas';
     it1.precoR = 7.39;
     it1.preco = 'R\$ ${it1.precoR}';
     it1.title = 'Heineken_330ml';
-    it1.nomecomplet = 'Heineken_330ml';
+    it1.nomecomplet = 'Heineken_330ml';*/
 
     it2.imgUr =
         'https://cdn.awsli.com.br/2500x2500/1377/1377751/produto/156502978/ad15e54743.jpg';
@@ -457,7 +459,17 @@ class itensRowc {
     it5.nomecomplet = 'Vodka Premium Russian Platinum';
   }
 
-  void gerador2() {
+  void gerador(String product, String preco, int index) {
+    List<String> p = product.split(" ");
+    it1[index].imgUr = p[2];
+    it1[index].category = p[3];
+    it1[index].precoR = double.parse(preco);
+    it1[index].preco = 'R\$ ${it1[index].precoR}';
+    it1[index].title = p[0];
+    it1[index].nomecomplet = p[0];
+  }
+
+  /*void gerador2() {
     it1.imgUr =
         'https://io.convertiez.com.br/m/superpaguemenos/shop/products/images/18865/medium/queijo-gorgonzola-tirolez-kg_76422.png';
     it1.category = 'Frios e laticínios';
@@ -621,5 +633,8 @@ class itensRowc {
     it5.preco = 'R\$ ${it5.precoR}/(500g)';
     it5.title = 'Molho de Tomate Fugini';
     it5.nomecomplet = 'Molho de Tomate Fugini';
-  }
+    
+  }*/
+
+  map(Widget Function(dynamic product) param0) {}
 }

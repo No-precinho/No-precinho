@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import './mercados.dart';
 import '../inicial/ProdInterface.dart';
-import '../bd/bd.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class prodClass extends StatefulWidget {
   itenc it;
@@ -15,21 +15,47 @@ class _prodClass extends State<prodClass> {
   itenc it;
   _prodClass(this.it);
 
+  List<String> markets = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadMarkets();
+  }
+
+  void loadMarkets() async {
+    var marketList = await getMarkets(it.id);
+    setState(() {
+      markets = marketList;
+    });
+  }
+
+  Future<List<String>> getMarkets(String idProduct) async {
+    List<String> markets = [];
+    CollectionReference productsRef =
+        FirebaseFirestore.instance.collection('marketProducts');
+    CollectionReference marketRef =
+        FirebaseFirestore.instance.collection('supermarkets');
+
+    QuerySnapshot querySnapshot = await productsRef
+        .where("idProduct", isEqualTo: idProduct)
+        .orderBy("preco")
+        .get();
+
+    for (var doc in querySnapshot.docs) {
+      DocumentSnapshot documentSnapshot =
+          await marketRef.doc(doc.get("idSupermarket")).get();
+      String aux =
+          "${documentSnapshot.get("name")}_${documentSnapshot.get("address")}_${doc.get("preco")}";
+      markets.add(aux);
+    }
+
+    return markets;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          iconTheme: const IconThemeData(
-            color: Colors.white, //change your color here
-          ),
-          title: const Text(
-            'No precinho',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          centerTitle: true,
-          backgroundColor: const Color(0xFFC70C65)),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -43,130 +69,43 @@ class _prodClass extends State<prodClass> {
                 ),
                 child: Column(
                   children: [
-                    //----------------------------------------------------------Cria
-                    ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(const Color(0xFF6D0CB9)),
-                        fixedSize:
-                            MaterialStateProperty.all(const Size(180, 50)),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Bd(),
-                      ),
-                    );
-                        //_createTable2();
-                        // Adicione o código para o que deve acontecer quando o botão é pressionado
-                      },
-                      child: const Text(
-                        'SecretBd',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                        ),
-                      ),
-                    ),
-                    //----------------------------------------------------------
-                    
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10.0),
-                          child: Image.network(
-                            it.imgUr,
-                            width: 80,
-                            height: 80,
-                            fit: BoxFit.cover,
-                          ),
+                          child: Image.network(it.imgUr,
+                              width: 80, height: 80, fit: BoxFit.cover),
                         ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 50),
-                          width: 200,
-                          child: Text(
-                            ('${it.preco}  ${it.nomecomplet}'),
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(
-                              fontSize: 18,
-                            ),
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text('R\$ ${it.preco}  ${it.nomecomplet}',
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(fontSize: 18)),
                           ),
                         ),
                       ],
                     ),
-                    const Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(top: 10),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'Emporio Dom Olivio',
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Text("Rua Furtado de Mendonça"),
-                          ],
-                        )),
                   ],
                 ),
               ),
             ),
-            Mercado(
-                nome: "ABC",
-                endereco: "Rua São Paulo da Cruz",
-                preco: (double.parse((it.precoR * 1.05).toStringAsFixed(2)))),
-            const Divider(
-              color: Color(0xFFEEEEEE),
-              thickness: 2,
-            ),
-            Mercado(
-                nome: "Carrefour",
-                endereco: "Rua João Soares de Senna",
-                preco: (double.parse((it.precoR * 1.1).toStringAsFixed(2)))),
-            const Divider(
-              color: Color(0xFFEEEEEE),
-              thickness: 2,
-            ),
-            Mercado(
-                nome: "Dia%",
-                endereco: "Rua Joatuba",
-                preco: (double.parse((it.precoR * 1.12).toStringAsFixed(2)))),
-            const Divider(
-              color: Color(0xFFEEEEEE),
-              thickness: 2,
-            ),
-            Mercado(
-                nome: "Carrefour",
-                endereco: "Rua Glocínia",
-                preco: (double.parse((it.precoR * 1.15).toStringAsFixed(2)))),
-            const Divider(
-              color: Color(0xFFEEEEEE),
-              thickness: 2,
-            ),
-            Mercado(
-                nome: "Supernosso",
-                endereco: "Rua Glocínia",
-                preco: (double.parse((it.precoR * 1.2).toStringAsFixed(2)))),
-            const Divider(
-              color: Color(0xFFEEEEEE),
-              thickness: 2,
-            ),
-            Mercado(
-                nome: "Supernosso",
-                endereco: "Rua Dois Mil Duzentos e Vinte",
-                preco: (double.parse((it.precoR * 1.2).toStringAsFixed(2)))),
-            const Divider(
-              color: Color(0xFFEEEEEE),
-              thickness: 2,
-            ),
+            markets.isNotEmpty
+                ? ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: markets.length,
+                    itemBuilder: (context, index) {
+                      var marketDetails = markets[index].split('_');
+                      return ListTile(
+                        title: Text(marketDetails[0]),
+                        subtitle: Text(marketDetails[1]),
+                        trailing: Text('R\$ ${marketDetails[2]}'),
+                      );
+                    },
+                  )
+                : CircularProgressIndicator(),
           ],
         ),
       ),
