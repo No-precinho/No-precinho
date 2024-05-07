@@ -129,9 +129,10 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
                   fixedSize: MaterialStateProperty.all(const Size(180, 50)),
                 ),
                 onPressed: () {
+                  print(":::::: $_barcodeResult");
                   //acessbd.createState().atualizarProduto("Heineken_330ml", numberController.text, _controllersupermercado.text);
-                  atualizarProduto(
-                      '0', _controllersupermercado.text, numberController.text);
+                  atualizarProduto(_barcodeResult, _controllersupermercado.text,
+                      numberController.text);
                 },
                 child: const Text(
                   'Salvar',
