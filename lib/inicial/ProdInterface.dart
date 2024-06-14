@@ -53,10 +53,8 @@ class itensRowc {
   itenc it5 = itenc();
 
   void addGerar(String n, String img, String cat) {
-    // Obtém uma referência para a coleção de usuários
     CollectionReference ref = FirebaseFirestore.instance.collection('products');
 
-    // Cria um novo documento com os dados do usuário
     ref.add({
       "name": n,
       "image": img,
@@ -79,7 +77,6 @@ class itensRowc {
   }*/
 
   void adcomp() {
-    // gera produtos base
     addGerar(
         "Heineken_330ml",
         "https://cdn.awsli.com.br/2500x2500/2371/2371659/produto/169355378/304ad436dd.jpg",
@@ -132,93 +129,78 @@ class itensRowc {
     codebarid++;
 
     addGerar(
-        //3
         "Pão Francês",
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeMdlRz59OMciIJhtU6ivF7GINbN1cIZncWCGmfDrYiA&s",
         "Padaria e confeitaria");
     codebarid++;
     addGerar(
-        //3
         "Croissant de Chocolate",
         "https://static.itdg.com.br/images/1200-630/8e23fd7f8225b98238bba43bd4d142db/croissant-de-chocolate.jpg",
         "Padaria e confeitaria");
     codebarid++;
     addGerar(
-        //3
         "Bolo Red Velvet",
         "https://cdn.vnda.com.br/1000x/bisoupartyshop/2022/10/27/20_10_3_359_DDEF0799.jpg?v=1666914621",
         "Padaria e confeitaria");
     codebarid++;
     addGerar(
-        //3
         "Torta de Limão",
         "https://cknj.com.br/teste/wp-content/uploads/2021/10/torta-de-limao-01-1200x901.jpg",
         "Padaria e confeitaria");
     codebarid++;
     addGerar(
-        //3
         "Pão de Queijo",
         "https://essareceitafunciona.com.br/wp-content/uploads/2022/07/Pao-de-queijo-Essa-Receita-Funciona-9-500x500.jpg",
         "Padaria e confeitaria");
     codebarid++;
 
     addGerar(
-        //4
         "Biscoito Recheado de Chocolate",
         "https://richester.b-cdn.net/wp-content/uploads/2021/01/Recheado-Amori-Chocolate-125g-1.png",
         "Biscoitos e doces");
     codebarid++;
     addGerar(
-        //4
         "Brigadeiro Gourmet",
         "https://assets.delirec.com/images%2FUeqVWaiebAOPCtk5KDDUJ6uEnLD2%2Frecipe%2Fc2707086-cc0b-4a1e-828a-d3d521cd5205-Brigadeiro-gourmet--gallery-0",
         "Biscoitos e doces");
     codebarid++;
     addGerar(
-        //4
         "Biscoito de Polvilho",
         "https://cdn.awsli.com.br/600x450/1411/1411579/produto/70792492/12dc68d67c.jpg",
         "Biscoitos e doces");
     codebarid++;
     addGerar(
-        //4
         "Alfajor Argentino",
         "https://bistroentrecote.com.br/wp-content/uploads/2023/08/Alfajor-Argentino-4.jpg",
         "Biscoitos e doces");
     codebarid++;
     addGerar(
-        //4
         "Cookies de Aveia e Passas",
         "https://cdn0.tudoreceitas.com/pt/posts/8/1/5/biscoitos_de_aveia_com_passas_4518_600_square.jpg",
         "Biscoitos e doces");
     codebarid++;
 
     addGerar(
-        //5
         "Arroz Integral",
         "https://static.paodeacucar.com/img/uploads/1/172/11228172.png",
         "Mercearia");
     codebarid++;
     addGerar(
-        //5
         "Feijão Preto",
         "https://www.camil.com.br/wp-content/uploads/sites/12/2020/06/1582828742-mkp-feijao-preto-1kg-3-768x768.png",
         "Mercearia");
     codebarid++;
     addGerar(
-        //5
         "Azeite de Oliva Extra Virgem",
         "https://loja.cestanobre.com.br/storage/produtos/azeite-de-oliva-extra-virgem-cocinero-250ml-2.webp",
         "Mercearia");
     codebarid++;
     addGerar(
-        //5
         "Café em Grãos Pilão",
         "https://m.media-amazon.com/images/I/71f0kaEjrGL._AC_UF1000,1000_QL80_.jpg",
         "Mercearia");
     codebarid++;
     addGerar(
-        //5
         "Molho de Tomate Fugini",
         "https://storage.googleapis.com/phygital_files/multimarketcachambi/uploads/produto/ext_tomate_fugini_sache_340g_604e111e-5846-481b-a777-ab20277ed322.thumbnail.png",
         "Mercearia");
@@ -226,11 +208,9 @@ class itensRowc {
   }
 
   void addGerarMercadoria(String codbar, double preco, String supermercado) {
-    // Obtém uma referência para a coleção de usuários
     CollectionReference marketProducts =
         FirebaseFirestore.instance.collection('marketProducts');
 
-    // Cria um novo documento com os dados do usuário
     marketProducts.add({
       "codbar": codbar,
       "preco": preco,
@@ -256,7 +236,6 @@ class itensRowc {
 
   void addcompmercado() {
     double a = 12;
-    // gera produtos mercadoria
     addGerarMercadoria("$codebarid", 7.39, "$idSuperMec");
     print('$codebarid');
     codebarid++;
@@ -308,137 +287,77 @@ class itensRowc {
     a = sqrt(897);
     a = sqrt(8997);
 
-    addGerarMercadoria(
-        //3
-        "$codebarid",
-        10.00,
-        "$idSuperMec");
+    addGerarMercadoria("$codebarid", 10.00, "$idSuperMec");
     print('$codebarid');
     codebarid++;
     a = sqrt(897);
     a = sqrt(8997);
-    addGerarMercadoria(
-        //3
-        "$codebarid",
-        5.00,
-        "$idSuperMec");
+    addGerarMercadoria("$codebarid", 5.00, "$idSuperMec");
     print('$codebarid');
     a = sqrt(897);
     a = sqrt(8997);
-    addGerarMercadoria(
-        //3
-        "$codebarid",
-        60.00,
-        "$idSuperMec");
+    addGerarMercadoria("$codebarid", 60.00, "$idSuperMec");
     print('$codebarid');
     a = sqrt(897);
     a = sqrt(8997);
-    addGerarMercadoria(
-        //3
-        "$codebarid",
-        40.00,
-        "$idSuperMec");
+    addGerarMercadoria("$codebarid", 40.00, "$idSuperMec");
     print('$codebarid');
     codebarid++;
     a = sqrt(897);
     a = sqrt(8997);
-    addGerarMercadoria(
-        //3
-        "$codebarid",
-        25.00,
-        "$idSuperMec");
+    addGerarMercadoria("$codebarid", 25.00, "$idSuperMec");
     print('$codebarid');
     codebarid++;
     a = sqrt(897);
     a = sqrt(8997);
 
-    addGerarMercadoria(
-        //4
-        "$codebarid",
-        3.50,
-        "$idSuperMec");
+    addGerarMercadoria("$codebarid", 3.50, "$idSuperMec");
     print('$codebarid');
     codebarid++;
     a = sqrt(897);
     a = sqrt(8997);
-    addGerarMercadoria(
-        //4
-        "$codebarid",
-        2.00,
-        "$idSuperMec");
+    addGerarMercadoria("$codebarid", 2.00, "$idSuperMec");
     print('$codebarid');
     codebarid++;
     a = sqrt(897);
     a = sqrt(8997);
-    addGerarMercadoria(
-        //4
-        "$codebarid",
-        15.00,
-        "$idSuperMec");
+    addGerarMercadoria("$codebarid", 15.00, "$idSuperMec");
     print('$codebarid');
     codebarid++;
     a = sqrt(897);
     a = sqrt(8997);
-    addGerarMercadoria(
-        //4
-        "$codebarid",
-        4.00,
-        "$idSuperMec");
+    addGerarMercadoria("$codebarid", 4.00, "$idSuperMec");
     print('$codebarid');
     codebarid++;
     a = sqrt(897);
     a = sqrt(8997);
-    addGerarMercadoria(
-        //4
-        "$codebarid",
-        20.00,
-        "$idSuperMec");
+    addGerarMercadoria("$codebarid", 20.00, "$idSuperMec");
     print('$codebarid');
     codebarid++;
     a = sqrt(897);
     a = sqrt(8997);
 
-    addGerarMercadoria(
-        //5
-        "$codebarid",
-        5.00,
-        "$idSuperMec");
+    addGerarMercadoria("$codebarid", 5.00, "$idSuperMec");
     print('$codebarid');
     codebarid++;
     a = sqrt(897);
     a = sqrt(8997);
-    addGerarMercadoria(
-        //5
-        "$codebarid",
-        8.00,
-        "$idSuperMec");
+    addGerarMercadoria("$codebarid", 8.00, "$idSuperMec");
     print('$codebarid');
     codebarid++;
     a = sqrt(897);
     a = sqrt(8997);
-    addGerarMercadoria(
-        //5
-        "$codebarid",
-        20.00,
-        "$idSuperMec");
+    addGerarMercadoria("$codebarid", 20.00, "$idSuperMec");
     print('$codebarid');
     codebarid++;
     a = sqrt(897);
     a = sqrt(8997);
-    addGerarMercadoria(
-        //5
-        "$codebarid",
-        25.00,
-        "$idSuperMec");
+    addGerarMercadoria("$codebarid", 25.00, "$idSuperMec");
     print('$codebarid');
     codebarid++;
     a = sqrt(897);
     a = sqrt(8997);
-    addGerarMercadoria(
-        //5
-        "$codebarid",
-        5.00,
-        "$idSuperMec");
+    addGerarMercadoria("$codebarid", 5.00, "$idSuperMec");
     print('$codebarid');
     codebarid++;
     a = sqrt(897);

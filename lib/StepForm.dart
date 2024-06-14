@@ -15,10 +15,8 @@ class StepForm extends StatefulWidget {
 class StepFormState extends State<StepForm> {
   void addUserToDatabase() async {
     print("Entrei");
-    // Obtém uma referência para a tabela "users" no Realtime Database
     final usersRef = FirebaseDatabase.instance.ref().child('products');
     print("Entrei2");
-    // Cria um novo nó com um ID exclusivo gerado automaticamente
     final newUserRef = usersRef.get();
 
     /*
@@ -58,14 +56,10 @@ class StepFormState extends State<StepForm> {
 /*
     DatabaseReference ref = FirebaseDatabase.instance.ref("products/-Nx5ssRSbEEapxoszXHO");
 
-// Only update the name, leave the age and address!
-
     await ref.update({
       "name": "Presunto Parma",
     });
     print("Foi3");*/
-
-    // Define os dados do usuário ADD
 /*
     await newUserRef
         .set({

@@ -1,4 +1,3 @@
-// Arquivo: lib/modelos/category.dart
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Category {
