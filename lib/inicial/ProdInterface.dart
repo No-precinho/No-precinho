@@ -5,15 +5,42 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class itenc {
-  String id = "";
-  String imgUr =
-      'https://image.cdn2.seaart.ai/2024-03-01/cnh3ec5e878c738rbgf0/ba8d5cc37c75f4d301038456f9fe21a4468e7662_high.webp';
-  String category = "Adega e bebidas";
-  String title = "Vinho Tinto";
-  String nomecomplet = "Vinho Tinto Reserva Cabernet Sauvignon ";
-  //  "Este vinho tinto encorpado é produzido a partir de uvas Cabernet Sauvignon cuidadosamente selecionadas. Possui notas intensas de frutas vermelhas maduras, taninos macios e um final persistente. Ideal para acompanhar carnes grelhadas e queijos fortes.";
-  String preco = "R\$ 80.00";
-  double precoR = 80.00;
+  String id;
+  String imgUr;
+  String category;
+  String title;
+  String nomecomplet;
+  String preco;
+  double precoR;
+
+  itenc({
+    this.id = "",
+    this.imgUr =
+        'https://image.cdn2.seaart.ai/2024-03-01/cnh3ec5e878c738rbgf0/ba8d5cc37c75f4d301038456f9fe21a4468e7662_high.webp',
+    this.category = "Adega e bebidas",
+    this.title = "Vinho Tinto",
+    this.nomecomplet = "Vinho Tinto Reserva Cabernet Sauvignon",
+    this.preco = "R\$ 80.00",
+    this.precoR = 80.00,
+  });
+
+  void updateWith({
+    String? id,
+    String? imgUr,
+    String? category,
+    String? title,
+    String? nomecomplet,
+    String? preco,
+    double? precoR,
+  }) {
+    this.id = id ?? this.id;
+    this.imgUr = imgUr ?? this.imgUr;
+    this.category = category ?? this.category;
+    this.title = title ?? this.title;
+    this.nomecomplet = nomecomplet ?? this.nomecomplet;
+    this.preco = preco ?? this.preco;
+    this.precoR = precoR ?? this.precoR;
+  }
 }
 
 class itensRowc {

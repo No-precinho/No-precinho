@@ -159,11 +159,11 @@ class StepFormState extends State<StepForm> {
             return _pageList[index];
           }),
       bottomNavigationBar: BottomNavigationBar(
-        fixedColor: Colors.cyan,
+        fixedColor: Colors.black,
         //fixedColor: Colors.white,
-        unselectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF6D0CB9),
+        backgroundColor: Colors.white,
         onTap: (opcao) {
           //addUserToDatabase();
           //itensRowc it = itensRowc();
