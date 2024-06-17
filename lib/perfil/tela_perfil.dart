@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import './sobre.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -24,40 +25,67 @@ class ProfilePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(width: 220),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EditProfilePage(user: user),
-                    ),
-                  );
-                },
-                child: Text('Editar Perfil'),
+      body: Stack(
+        children: [
+          Center(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(width: 220),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditProfilePage(user: user),
+                        ),
+                      );
+                    },
+                    child: Text('Editar Perfil'),
+                  ),
+                  SizedBox(width: 200),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChangePasswordPage(user: user),
+                        ),
+                      );
+                    },
+                    child: Text('Alterar Senha'),
+                  ),
+                ],
               ),
-              SizedBox(width: 200),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ChangePasswordPage(user: user),
-                    ),
-                  );
-                },
-                child: Text('Alterar Senha'),
-              ),
-            ],
+            ),
           ),
-        ),
+          Positioned(
+            bottom: 10.0,
+            left: 10.0,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all(const Size(80, 30)),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AboutScreen(),
+                  ),
+                );
+              },
+              child: const Text(
+                'Sobre',
+                style: TextStyle(
+                  fontSize: 12,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -126,19 +154,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   style: TextStyle(color: Colors.red),
                 ),
               ),
-            const SizedBox(height: 20.0), // Adiciona espaço antes do botão
+            const SizedBox(height: 20.0),
             Align(
-              alignment: Alignment.center, // Centraliza o botão
+              alignment: Alignment.center,
               child: SizedBox(
-                width: 200, // Define a largura máxima do botão
+                width: 200,
                 child: ElevatedButton(
                   onPressed: _updateProfile,
                   child: Text('Salvar'),
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(
-                        vertical: 12.0), // Aumenta a altura do botão
-                    textStyle:
-                        TextStyle(fontSize: 18.0), // Aumenta o tamanho do texto
+                    padding: EdgeInsets.symmetric(vertical: 12.0),
+                    textStyle: TextStyle(fontSize: 18.0),
                   ),
                 ),
               ),
@@ -238,11 +264,11 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   style: TextStyle(color: Colors.red),
                 ),
               ),
-            SizedBox(height: 20.0), // Adiciona espaço antes do botão
+            SizedBox(height: 20.0),
             Align(
-              alignment: Alignment.center, // Centraliza o botão
+              alignment: Alignment.center,
               child: SizedBox(
-                width: 200, // Define a largura máxima do botão
+                width: 200,
                 child: ElevatedButton(
                   onPressed: _newPasswordController.text.isNotEmpty &&
                           _newPasswordController.text ==
@@ -251,10 +277,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       : null,
                   child: Text('Alterar Senha'),
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(
-                        vertical: 16.0), // Aumenta a altura do botão
-                    textStyle:
-                        TextStyle(fontSize: 18.0), // Aumenta o tamanho do texto
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                    textStyle: TextStyle(fontSize: 18.0),
                   ),
                 ),
               ),
