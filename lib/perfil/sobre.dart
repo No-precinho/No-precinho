@@ -48,18 +48,12 @@ class AboutScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(const Color(0xFF6D0CB9)),
-                  ),
+                  style: ButtonStyle(),
                   onPressed: () {
                     abrirUrl();
                   },
                   child: const Text(
                     'Visite o projeto no GitHub',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
                   ),
                 ),
                 const SizedBox(height: 20),

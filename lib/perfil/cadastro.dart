@@ -4,6 +4,7 @@ import 'package:path/path.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../StepForm.dart';
 
 class MyApp extends StatefulWidget {
@@ -28,26 +29,47 @@ class _MyApp extends State<MyApp> {
     return bd;
   }
 
-  _insertUserLocal(String nome, String email, String senha) async {
+  Future<void> _insertUserLocal(String nome, String email, String senha) async {
     Database db = await _createTable();
+    var bytes = utf8.encode(senha);
+    var senhaComMd5 = md5.convert(bytes).toString();
+
     Map<String, dynamic> dadosUsuario = {"nome": nome};
     int id = await db.insert("usuarios_local", dadosUsuario);
 
-    var bytes = utf8.encode(senha);
-    var senhaComMd5 = md5.convert(bytes);
-
-    adicionarUsuario(nome, email, senhaComMd5.toString());
+    await _registerUser(nome, email, senhaComMd5);
   }
 
-  void adicionarUsuario(String nome, String email, String senha) {
-    CollectionReference usuarios =
-        FirebaseFirestore.instance.collection('users');
+  Future<void> _registerUser(String nome, String email, String senha) async {
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: senha,
+      );
 
-    usuarios.add({'nome': nome, 'email': email, 'senha': senha}).then((value) {
-      print("Usuário adicionado com sucesso! ID do documento: ${value.id}");
-    }).catchError((error) {
-      print("Erro ao adicionar usuário: $error");
-    });
+      // Obter usuário atual
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await user.updateDisplayName(nome);
+      }
+
+      CollectionReference usuarios =
+          FirebaseFirestore.instance.collection('users');
+      await usuarios
+          .doc(userCredential.user?.uid)
+          .set({'nome': nome, 'email': email});
+      print(
+          "Usuário adicionado ao Firestore com sucesso: ${userCredential.user?.uid}");
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('A senha fornecida é muito fraca.');
+      } else if (e.code == 'email-already-in-use') {
+        print('A conta já existe para esse email.');
+      }
+    } catch (e) {
+      print("Erro ao registrar usuário: $e");
+    }
   }
 
   @override
@@ -127,20 +149,11 @@ class _MyApp extends State<MyApp> {
               padding: const EdgeInsets.all(32),
               child: ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Color(0xFF6D0CB9)),
                   fixedSize: MaterialStateProperty.all(const Size(130, 50)),
                 ),
                 onPressed: () {
-                  if (_controllernome.text != "" &&
-                      _controlleremail.text.contains("@") &&
-                      _controlleremail.text.contains(".com") &&
-                      _controllersenha.text == _controllerconfirmarsenha.text &&
-                      _controllersenha.text.length >= 3)
-                    _insertUserLocal(_controllernome.text,
-                        _controlleremail.text, _controllersenha.text);
-                  else {
-                    print('O nome/email/senha nao sao validos!');
-                  }
+                  _insertUserLocal(_controllernome.text, _controlleremail.text,
+                      _controllersenha.text);
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (context) => StepForm()),
@@ -149,9 +162,6 @@ class _MyApp extends State<MyApp> {
                 },
                 child: const Text(
                   'Salvar',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
                 ),
               ),
             ),

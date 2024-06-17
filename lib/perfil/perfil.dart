@@ -1,8 +1,29 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sprint2/perfil/tela_perfil.dart';
 import './cadastro.dart';
 import './login.dart';
 import './sobre.dart';
+
+class AuthCheck extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<User?>(
+      future: FirebaseAuth.instance.authStateChanges().first,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Ocorreu um erro'));
+        } else if (snapshot.hasData) {
+          return ProfilePage();
+        } else {
+          return perButtons();
+        }
+      },
+    );
+  }
+}
 
 class perButtons extends StatefulWidget {
   @override
@@ -22,21 +43,19 @@ class _perButtonsState extends State<perButtons> {
               children: <Widget>[
                 ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Color(0xFF6D0CB9)),
                     fixedSize: MaterialStateProperty.all(const Size(180, 50)),
                   ),
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => login(),
+                        builder: (context) => Login(),
                       ),
                     );
                   },
                   child: const Text(
                     '   Login   ',
                     style: TextStyle(
-                      color: Colors.white,
                       fontSize: 22,
                     ),
                   ),
@@ -44,7 +63,6 @@ class _perButtonsState extends State<perButtons> {
                 const Padding(padding: EdgeInsets.all(11)),
                 ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Color(0xFF6D0CB9)),
                     fixedSize: MaterialStateProperty.all(const Size(180, 50)),
                   ),
                   onPressed: () {
@@ -58,7 +76,6 @@ class _perButtonsState extends State<perButtons> {
                   child: const Text(
                     'Cadastro',
                     style: TextStyle(
-                      color: Colors.white,
                       fontSize: 22,
                     ),
                   ),
@@ -67,26 +84,23 @@ class _perButtonsState extends State<perButtons> {
             ),
           ),
           Positioned(
-            bottom: 16.0,
-            left: 16.0,
-
+            bottom: 10.0,
+            left: 10.0,
             child: ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Color(0xFF6D0CB9)),
                 fixedSize: MaterialStateProperty.all(const Size(80, 30)),
               ),
               onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AboutScreen(), // Navegar para a tela "Sobre"
-                    ),
-                  );
-                },
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AboutScreen(),
+                  ),
+                );
+              },
               child: const Text(
                 'Sobre',
                 style: TextStyle(
-                  color: Colors.white,
                   fontSize: 12,
                 ),
               ),

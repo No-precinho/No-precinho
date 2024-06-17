@@ -79,8 +79,8 @@ class StepFormState extends State<StepForm> {
 
   final List _pageList = [
     Inc(),
-    BarcodeScannerPage(),
-    perButtons(),
+    Auth_check(),
+    AuthCheck(),
   ];
 
   void Pages(page) {
@@ -173,15 +173,15 @@ class StepFormState extends State<StepForm> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Início',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.photo_camera),
-            label: 'Camera',
+            label: 'Câmera',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Profile',
+            label: 'Perfil',
           ),
         ],
       ),

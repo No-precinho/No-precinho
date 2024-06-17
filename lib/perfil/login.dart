@@ -1,56 +1,52 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../StepForm.dart';
-import 'package:crypto/crypto.dart';
-import 'dart:convert';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class login extends StatefulWidget {
+class Login extends StatefulWidget {
   @override
-  _login createState() => _login();
+  _LoginState createState() => _LoginState();
 }
 
-class _login extends State<login> {
-  Future<bool> verifyEmailAndPassword(String email, String password) async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .where('email', isEqualTo: email)
-        .where('senha', isEqualTo: password)
-        .get();
+class _LoginState extends State<Login> {
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerSenha = TextEditingController();
+  String? _errorMessage;
 
-    return querySnapshot.docs.isNotEmpty;
-  }
-
-  Future<bool> login(String email, String password) async {
-    bool isAuthenticated = await verifyEmailAndPassword(email, password);
-
-    if (isAuthenticated) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('email', email);
-      prefs.setString('password', password);
+  Future<void> _login() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _controllerEmail.text.trim(),
+        password: _controllerSenha.text.trim(),
+      );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => StepForm()),
+        (Route<dynamic> route) => false,
+      );
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Erro ao fazer login: E-mail ou senha inválidos!';
+      });
     }
-
-    return isAuthenticated;
   }
 
-  TextEditingController _controlleremail = TextEditingController();
-  TextEditingController _controllersenha = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: Colors.white, //change your color here
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        title: const Text(
+          'No precinho',
+          style: TextStyle(
+            color: Colors.white,
           ),
-          title: const Text(
-            'No precinho',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          centerTitle: true,
-          backgroundColor: const Color(0xFFC70C65)),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color(0xFFC70C65),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -72,7 +68,7 @@ class _login extends State<login> {
                 decoration: InputDecoration(
                   labelText: 'E-mail: ',
                 ),
-                controller: _controlleremail,
+                controller: _controllerEmail,
               ),
             ),
             Padding(
@@ -82,33 +78,26 @@ class _login extends State<login> {
                 decoration: InputDecoration(
                   labelText: 'Senha: ',
                 ),
-                controller: _controllersenha,
+                controller: _controllerSenha,
               ),
             ),
+            if (_errorMessage != null)
+              Padding(
+                padding: const EdgeInsets.all(32),
+                child: Text(
+                  _errorMessage!,
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
             Padding(
               padding: const EdgeInsets.all(32),
               child: ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Color(0xFF6D0CB9)),
                   fixedSize: MaterialStateProperty.all(const Size(130, 50)),
                 ),
-                onPressed: () {
-                  var bytes = utf8.encode(_controllersenha.text);
-                  var senhaComMd5 = md5.convert(bytes);
-                  login(_controlleremail.text, senhaComMd5.toString());
-                  verifyEmailAndPassword(
-                      _controlleremail.text, senhaComMd5.toString());
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => StepForm()),
-                    (Route<dynamic> route) => false,
-                  );
-                },
+                onPressed: _login,
                 child: const Text(
-                  'Login',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
+                  'Entrar',
                 ),
               ),
             ),
