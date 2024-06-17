@@ -31,13 +31,13 @@ class _MyApp extends State<MyApp> {
 
   Future<void> _insertUserLocal(String nome, String email, String senha) async {
     Database db = await _createTable();
-    var bytes = utf8.encode(senha);
-    var senhaComMd5 = md5.convert(bytes).toString();
+    // var bytes = utf8.encode(senha);
+    // var senhaComMd5 = md5.convert(bytes).toString();
 
     Map<String, dynamic> dadosUsuario = {"nome": nome};
     int id = await db.insert("usuarios_local", dadosUsuario);
 
-    await _registerUser(nome, email, senhaComMd5);
+    await _registerUser(nome, email, senha);
   }
 
   Future<void> _registerUser(String nome, String email, String senha) async {
